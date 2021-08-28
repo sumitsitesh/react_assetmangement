@@ -4,9 +4,8 @@ const Header = () => {
     return (
         <div className='ui fixed menu'>
             <div className='ui container center'>
-                <h2> Asset Management </h2>
-                <div style={{ display: 'flex' }}>
-                </div>
+                <h2 style={{ display: 'flex' }}> Asset Management </h2>
+              
             </div>
 
         </div>

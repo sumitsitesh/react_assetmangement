@@ -1,6 +1,4 @@
 import React, { useState,useEffect } from 'react';
-
-// import FilterAsset from './FilterAsset';
 import AssetData from '../MockData.json'
 
 
@@ -11,23 +9,42 @@ const AssetTable = () => {
     const columns = AssetData[0] && Object.keys(AssetData[0])
   
 
-
-
-
     useEffect(() => {
         const sortArray = type => {
-            console.log(type)
           const types = {
             assetClass: 'assetClass',
             price: 'price',
             ticker: 'ticker',
           };
+          const sortedBy = {
+            'Equities'  : 0, 
+            'Macro'   : 1, 
+            'Credit' : 2,
+          }
           const sortProperty = types[type];
-          console.log("sort by property::::",sortProperty);
-          const sorted = [...assetList].sort((a, b) => {
-                return a[sortProperty] - b[sortProperty] 
+          let sorted = [...assetList].sort((a, b) => {
+              if(type === 'price'){
+                if (a[sortProperty] < b[sortProperty]) {
+                    return 1;
+                  }
+                  else if (a[sortProperty] > b[sortProperty]) {
+                    return -1;
+                  } 
+                  return 0;
+              }if(type === 'ticker'){
+                if (a[sortProperty] < b[sortProperty]) {
+                    return -1;
+                  }
+                  else if (a[sortProperty] > b[sortProperty]) {
+                    return 1;
+                  } 
+                  return 0;
+              }if(type === 'assetClass'){
+                 return sortedBy[a.assetClass] - sortedBy[b.assetClass]
+              }return 0;
+            
+                // return a[sortProperty] - b[sortProperty] 
           });
-          console.log("sorted field....",sorted);
           setAssetList(sorted);
         };
     
@@ -38,7 +55,7 @@ const AssetTable = () => {
     return (
         <div style={{ marginTop: "60px" }}>
 
-            <select onChange={(e) => setSortType(e.target.value)}>
+            <select onChange={(e) => setSortType(e.target.value)} style={{width:'300px',height: '40px',marginTop:'-20px',marginBottom:'5px',backgroundColor: 'aqua'}} >
                 <option value="assetClass">Assetclass</option>
                 <option value="price">Price</option>
                 <option value="ticker">Ticker</option>
