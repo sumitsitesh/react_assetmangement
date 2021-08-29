@@ -1,16 +1,19 @@
 import React, { useState,useEffect } from 'react';
 import AssetData from '../MockData.json'
+import ErrorComponent from './ErrorComponent';
 
 
 
 const AssetTable = () => {
     const [assetList, setAssetList] = useState(AssetData)
     const [sortType, setSortType] = useState('assetClass');
+    const [hasError, setHasError] = useState(true);
     const columns = AssetData[0] && Object.keys(AssetData[0])
   
 
     useEffect(() => {
         const sortArray = type => {
+        try{
           const types = {
             assetClass: 'assetClass',
             price: 'price',
@@ -46,29 +49,32 @@ const AssetTable = () => {
                 // return a[sortProperty] - b[sortProperty] 
           });
           setAssetList(sorted);
-        };
-    
+        }catch{
+          setHasError(true);
+        }};
         sortArray(sortType);
       }, [sortType]);
 
 
     return (
         <div style={{ marginTop: "60px" }}>
-
-            <select onChange={(e) => setSortType(e.target.value)} style={{width:'300px',height: '40px',marginTop:'-20px',marginBottom:'5px',backgroundColor: 'aqua'}} >
+{!hasError && (
+  <div>
+            <select placeholder="Select Options"onChange={(e) => setSortType(e.target.value)} style={{width:'300px',height: '40px',marginTop:'-20px',marginBottom:'5px',backgroundColor: 'aqua'}} >
                 <option value="assetClass">Assetclass</option>
                 <option value="price">Price</option>
                 <option value="ticker">Ticker</option>
             </select>
+            
             <table cellPadding={0} cellSpacing={0}>
                 <thead>
-                    <tr >{AssetData[0] && columns.map(head => <th>{head.toUpperCase()}</th>)}</tr>
+                    <tr>{AssetData[0] && columns.map((head,index) => <th key={index}>{head.toUpperCase()}</th>)}</tr>
                 </thead>
                 <tbody>
-                    {assetList.map(asset => {
+                    {assetList.map((asset,index) => {
                     let priceColor = asset.price >0 ? '#5448e2' : 'red';
                     let assetColor = (asset.assetClass === 'Equities') ? '#5448e2' : (asset.assetClass === 'Credit') ?'Green' : 'white';
-                    return <tr>
+                    return <tr key={index}>
                         <td>{asset.ticker}</td>
                         <td style={{background:priceColor}}>{asset.price}</td>
                         <td style={{background:assetColor}}>{asset.assetClass}</td>
@@ -77,7 +83,11 @@ const AssetTable = () => {
                     )}
 
                 </tbody>
-            </table>
+            </table> 
+            
+            </div>)}
+            {hasError && <ErrorComponent></ErrorComponent>}
+           
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import Header from './Components/Header'
-import AssetTable from './Components/tableComponent';
+import AssetTable from './Components/TableComponent';
 
 import './App.css';
 
