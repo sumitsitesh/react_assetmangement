@@ -2,9 +2,9 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <div className='ui fixed menu'>
+        <div className='App-header '>
             <div className='ui container center'>
-                <h2 style={{ display: 'flex' }}> Asset Management </h2>
+                <h2 style={{ display: 'flex', marginLeft: '338px' }}> Asset Management </h2>
               
             </div>
 
