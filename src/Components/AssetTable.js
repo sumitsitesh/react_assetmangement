@@ -14,6 +14,7 @@ const sortedBy = {
 }
 
 const AssetTable = () => {
+  
   const [assetList, setAssetList] = useState(AssetData)
   const [sortType, setSortType] = useState('assetClass');
   const [hasError, setHasError] = useState(false);
@@ -65,18 +66,18 @@ const AssetTable = () => {
 
             <div className='child'>
               <select placeholder="Select Options" onChange={(e) => setSortType(e.target.value)} style={{ width: '300px', height: '40px', marginTop: '-20px', marginBottom: '5px', backgroundColor: '#112d64', color: 'white',fontSize: 'calc(1px + 2vmin)'}} >
-                <option value="assetClass">Assetclass</option>
+                <option value="assetClass">Asset_class</option>
                 <option value="price">Price</option>
                 <option value="ticker">Ticker</option>
               </select>
             </div>
           </Fragment>
 
-          <table className='assets'>
+          <table className='assets' data-testid="table-element">
             <thead >
               <tr>{AssetData[0] && columns.map((head, index) => <th key={index}>{head.toUpperCase()}</th>)}</tr>
             </thead>
-            <tbody >
+            <tbody data-testid="table-data">
               {assetList.map((asset, index) => {
                 let priceColor = asset.price > 0 ? '#5448e2' : 'red';
                 let assetColor = (asset.assetClass === 'Equities') ? '#5448e2' : (asset.assetClass === 'Credit') ? 'Green' : 'white';

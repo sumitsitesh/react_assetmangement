@@ -39,7 +39,8 @@
   }
 }
 .assetSel{
-  margin-top: -59px
+  margin-top: -59px;
+  background-color: ghostwhite;
 }
 .assets {
   font-family: Arial, Helvetica, sans-serif;
@@ -50,11 +51,9 @@
 
 .assets td, .assets th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 10px;
   display: 'flex'
 }
-
-
 .assets th {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -62,10 +61,6 @@
   background-color: #112d64;
   color: white;
 }
-
-
-
-
 .child {
   display: inline-block;
   /* border: 1px solid rgb(248, 245, 245); */

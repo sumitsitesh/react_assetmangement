@@ -1,13 +1,16 @@
 import Header from './Components/Header'
-import AssetTable from './Components/TableComponent';
-
+import AssetTable from './Components/AssetTable';
+import ErrorComponent from './Components/ErrorComponent';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <AssetTable/>
+      <ErrorComponent>
+      <AssetTable />
+      </ErrorComponent>
+      
     </div>
   );
 }
