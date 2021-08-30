@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import AssetData from '../MockData.json'
+import AssetData from '../MockData.json' //You can fetch data from API in a function and call that function in UseEffect method,for now we have just imported data from Mock json
 import ErrorComponent from './ErrorComponent';
 
 const types = {
@@ -16,10 +16,11 @@ const sortedBy = {
 const AssetTable = () => {
   
   const [assetList, setAssetList] = useState(AssetData)
-  const [sortType, setSortType] = useState('assetClass');
-  const [hasError, setHasError] = useState(false);
-  const columns = AssetData[0] && Object.keys(AssetData[0])
+  const [sortType, setSortType] = useState('assetClass'); //setting sort type
+  const [hasError, setHasError] = useState(false); //checking error flag
+  const columns = AssetData[0] && Object.keys(AssetData[0]) //getting all the headers from json object
 
+  //Sorting financial Instruments based on Price/Ticker/AssetClass
   const sortArray = type => {
     try {
 
@@ -45,7 +46,7 @@ const AssetTable = () => {
           return sortedBy[a.assetClass] - sortedBy[b.assetClass]
         } return 0;
       });
-      setAssetList(sorted);
+      setAssetList(sorted); //setting state post select option
     } catch {
       setHasError(true);
     }
@@ -59,11 +60,10 @@ const AssetTable = () => {
   return (
     <div style={{ marginTop: "60px" }}>
       {!hasError && (
-        <div className="assetSel">
+        // asset select option
+        <div className="assetSel"> 
           <Fragment >
-
             <h2 className='child'> Assets Sorted By:</h2>
-
             <div className='child'>
               <select placeholder="Select Options" onChange={(e) => setSortType(e.target.value)} style={{ width: '300px', height: '40px', marginTop: '-20px', marginBottom: '5px', backgroundColor: '#112d64', color: 'white',fontSize: 'calc(1px + 2vmin)'}} >
                 <option value="assetClass">Asset_class</option>
@@ -72,7 +72,7 @@ const AssetTable = () => {
               </select>
             </div>
           </Fragment>
-
+{/* Table component */}
           <table className='assets' data-testid="table-element">
             <thead >
               <tr>{AssetData[0] && columns.map((head, index) => <th key={index}>{head.toUpperCase()}</th>)}</tr>
@@ -93,6 +93,7 @@ const AssetTable = () => {
           </table>
 
         </div>)}
+        {/* fallback UI from error component incase any error occured */}
       {hasError && <ErrorComponent></ErrorComponent>}
 
     </div>
