@@ -10,6 +10,6 @@ This proeject let's you sort Financial instruments based on Price/AssetClass/Tic
 
 #To run test(run command: npm test)
 
-
+FYI:- I have deployed code for better understanding at (https://filterinstruments.netlify.app/)
 
 
