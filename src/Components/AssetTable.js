@@ -16,15 +16,13 @@ const sortedBy = {
 
 const AssetTable = () => {
 
-  const [assetList, setAssetList] = useState([])
+  const [assetList, setAssetList] = useState(AssetData)
   const [sortType, setSortType] = useState('assetClass'); //setting sort type
   const [hasError, setHasError] = useState(false); //checking error flag
   const columns = AssetData[0] && Object.keys(AssetData[0]) //getting all the headers from json object
 
-  //make API call
-  const getAssetData = () => {
-    setAssetList(AssetData)
-  }
+  
+ 
   //Sorting financial Instruments based on Price/Ticker/AssetClass
   const sortArray = type => {
     try {
@@ -59,11 +57,9 @@ const AssetTable = () => {
 
   useEffect(() => {
     sortArray(sortType);
-  }, [sortType, assetList]);
+  }, [sortType]);
 
-  useEffect(() => {
-    getAssetData()
-  }, [])
+ 
 
   return (
     <div style={{ marginTop: "60px" }}>
