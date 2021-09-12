@@ -2,17 +2,14 @@ import React, { useState, useEffect, Fragment } from 'react';
 import '../App.css';
 import AssetData from '../MockData.json' //You can fetch data from API in a function and call that function in UseEffect method,for now we have just imported data from Mock json
 import ErrorComponent from './ErrorComponent';
+import {sortArray} from './SortUtil'
 
-const types = {
-  assetClass: 'assetClass',
-  price: 'price',
-  ticker: 'ticker',
-};
-const sortedBy = {
-  'Equities': 0,
-  'Macro': 1,
-  'Credit': 2,
-}
+
+// const sortedBy = {
+//   'Equities': 0,
+//   'Macro': 1,
+//   'Credit': 2,
+// }
 
 const AssetTable = () => {
 
@@ -24,39 +21,44 @@ const AssetTable = () => {
   
  
   //Sorting financial Instruments based on Price/Ticker/AssetClass
-  const sortArray = type => {
-    try {
+  // const sortArray = type => {
+  //   try {
 
-      const sortProperty = types[type];
-      let sorted = [...assetList].sort((a, b) => {
-        if (type === 'price') {
-          if (a[sortProperty] < b[sortProperty]) {
-            return 1;
-          }
-          else if (a[sortProperty] > b[sortProperty]) {
-            return -1;
-          }
-          return 0;
-        } if (type === 'ticker') {
-          if (a[sortProperty] < b[sortProperty]) {
-            return -1;
-          }
-          else if (a[sortProperty] > b[sortProperty]) {
-            return 1;
-          }
-          return 0;
-        } if (type === 'assetClass') {
-          return sortedBy[a.assetClass] - sortedBy[b.assetClass]
-        } return 0;
-      });
-      setAssetList(sorted); //setting state post select option
-    } catch {
-      setHasError(true);
-    }
-  };
+  //     const sortProperty = types[type];
+  //     let sorted = [...assetList].sort((a, b) => {
+  //       if (type === 'price') {
+  //         if (a[sortProperty] < b[sortProperty]) {
+  //           return 1;
+  //         }
+  //         else if (a[sortProperty] > b[sortProperty]) {
+  //           return -1;
+  //         }
+  //         return 0;
+  //       } if (type === 'ticker') {
+  //         if (a[sortProperty] < b[sortProperty]) {
+  //           return -1;
+  //         }
+  //         else if (a[sortProperty] > b[sortProperty]) {
+  //           return 1;
+  //         }
+  //         return 0;
+  //       } if (type === 'assetClass') {
+  //         return sortedBy[a.assetClass] - sortedBy[b.assetClass]
+  //       } return 0;
+  //     });
+  //     setAssetList(sorted); //setting state post select option
+  //   } catch {
+  //     setHasError(true);
+  //   }
+  // };
 
   useEffect(() => {
-    sortArray(sortType);
+   const result = sortArray(sortType,assetList);
+   if(!result){
+     setHasError(true)
+   }else {
+    setAssetList(result)
+   }
   }, [sortType]);
 
  
